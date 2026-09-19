@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Geral de ADM - Cimy FC</title>
-    <script src="https://jsdelivr.net"></script>
+    <!-- Biblioteca do Supabase via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -230,9 +231,13 @@
     </div>
 
     <script>
-        var URL_BANCO = "https://supabase.co";
+        // Correção de inicialização global do Supabase via CDN
+        var URL_BANCO = "https://oamvfvyuaqolsswklljp.supabase.co";
         var CHAVE_BANCO = "sb_publishable_5ebh8AehOkTaa3XEpcTw2Q_prA9FIFl";
-        var conexaoApi = supabase.createClient(URL_BANCO, CHAVE_BANCO);
+        
+        // Destrutura o createClient de dentro da variável global injetada pela tag script
+        var createClient = supabase.createClient;
+        var conexaoApi = createClient(URL_BANCO, CHAVE_BANCO);
 
         var elencoInicial = ["Ícaro", "Moisés", "Gustavo", "Yuri", "Caio", "Yago", "Paulo Gabriel"];
         if(!localStorage.getItem("cimy_elenco")) {
@@ -267,10 +272,3 @@
             
             var elenco = JSON.parse(localStorage.getItem("cimy_elenco")) || [];
             elenco.push(nome);
-            localStorage.setItem("cimy_elenco", JSON.stringify(elenco));
-            nomeInput.value = "";
-            renderizarElenco();
-        }
-
-        function removerAtleta(index) {
-            if(confirm("Deseja remover este jogador do time?")) {
