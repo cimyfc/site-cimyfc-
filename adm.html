@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Geral de ADM - Cimy FC</title>
-    <!-- Biblioteca do Supabase via CDN -->
+    <!-- Importação oficial e segura do Supabase -->
     <script src="https://jsdelivr.net"></script>
     <style>
         body {
@@ -234,6 +234,7 @@
         var URL_BANCO = "https://supabase.co";
         var CHAVE_BANCO = "sb_publishable_5ebh8AehOkTaa3XEpcTw2Q_prA9FIFl";
         
+        // Conexão direta e robusta com a biblioteca global
         var conexaoApi = window.supabase.createClient(URL_BANCO, CHAVE_BANCO);
 
         var elencoInicial = ["Ícaro", "Moisés", "Gustavo", "Yuri", "Caio", "Yago", "Paulo Gabriel"];
@@ -244,7 +245,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             renderizarElenco();
             puxarDadosNuvem();
-            setInterval(puxarDadosNuvem, 5000);
+            setInterval(puxarDadosNuvem, 4000);
         });
 
         function renderizarElenco() {
@@ -271,8 +272,3 @@
             elenco.push(nome);
             localStorage.setItem("cimy_elenco", JSON.stringify(elenco));
             nomeInput.value = "";
-            renderizarElenco();
-        }
-
-        function removerAtleta(index) {
-            
